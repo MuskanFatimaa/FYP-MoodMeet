@@ -1,0 +1,11 @@
+.help_link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .help_link:hover {
+    color: #00bfa6; /* or any highlight color you prefer */
+    text-decoration: underline;
+  }

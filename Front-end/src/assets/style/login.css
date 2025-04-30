@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
+.login-container {
+  font-family: 'DM Serif Display', serif;
+  background-color: #2e1a59;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-box h2 {
+  font-size: 20px;
+  font-weight: 300;
+  color: #eee;
+  margin-bottom: 5px;
+}
+
+.login-box h1 {
+  font-size: 60px;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-box input {
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  width: 280px;
+  font-size: 16px;
+  color: #eee;
+  outline: none;
+}
+
+.login-box input::placeholder {
+  color: #ccc;
+}
+
+.login-box button {
+  width: 290px;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: white;
+  color: #8c1e4d;
+  border: none;
+  border-radius: 25px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-box button:hover {
+  background-color: #f0dce4;
+}
+
+.login-box .signup-text {
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.login-box .signup-text a {
+  color: #eee;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.wave-image {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}

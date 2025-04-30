@@ -1,0 +1,75 @@
+.instructions-container {
+    font-family: 'Segoe UI', sans-serif;
+}
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 4rem;
+    padding: 3rem 2rem;
+    flex-wrap: wrap;
+}
+
+.col_1 {
+    flex-order: 1;
+    max-width: 500px;
+}
+
+.col_2 {
+    flex-order: 2;
+    max-width: 500px;
+}
+
+@media screen and (max-width: 768px) {
+    .col_1,
+    .col_2 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align: center;
+    }
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2e065a;
+}
+
+.subtitle {
+    font-size: 2.25rem;
+    color: #2e065a;
+    font-weight: 400;
+}
+
+.highlight {
+    font-size: 1.25rem;
+    color: #ec008c;
+    font-weight: 500;
+}
+
+.instruction-box {
+    background-color: #2e065a;
+    color: white;
+    padding: 1.75rem;
+    padding-top: 5.75em;
+    padding-bottom: 5.75rem;
+    border-radius: 0.75rem;
+    text-align: left;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.instruction-box:hover {
+    transform: translateY(-4px);
+}
+
+.instruction-title {
+    font-size: 2.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.instruction-text {
+    font-size: 1.95rem;
+    line-height: 1.5;
+    font-weight: 400;
+}

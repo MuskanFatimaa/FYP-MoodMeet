@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
+.custom-navbar {
+  width: 100%;
+  padding: 20px 60px;
+  display: flex;
+  justify-content: flex-end;
+  background-color: white;
+  font-family: 'DM Serif Display', serif;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #000;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #8c1e4d;
+}
+
+.navbar {
+    background-color: white;
+    padding: 20px 40px;
+    text-align: right;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar li {
+    color: black;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  

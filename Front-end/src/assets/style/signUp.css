@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* body,
+html {
+    height: 100%;
+    background-color: #2e1a59;
+    font-family: 'DM Serif Display', serif;
+    color: #fff;
+} */
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    background-color: white;
+    font-family: 'DM Serif Display', serif;
+}
+
+.signup-container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel {
+    flex: 1;
+    background-color: #2e1a59;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f9eaf5;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.left-panel h2 {
+    font-weight: 300;
+    font-size: 22px;
+    margin: 0;
+}
+
+.left-panel h1 {
+    font-size: 56px;
+    font-weight: 400;
+    margin: 10px 0 0 0;
+}
+
+.right-panel {
+    flex: 1;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-box {
+    width: 70%;
+    max-width: 400px;
+}
+
+.signup-box h1 {
+    font-size: 40px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: #1f003d;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 2px solid #c06b7c;
+    background-color: transparent;
+    font-size: 16px;
+    outline: none;
+    color: #8c1e4d;
+}
+
+::placeholder {
+    color: #c06b7c;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #c06b7c;
+    color: white;
+    border: none;
+    border-radius: 0 30px 30px 0;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #a6586d;
+}
+
+.switch-link {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #2e1a59;
+}
+
+.switch-link a {
+    text-decoration: none;
+    color: #2e1a59;
+    font-weight: bold;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
