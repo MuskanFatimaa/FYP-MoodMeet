@@ -9,20 +9,10 @@ const MeetMoodIntro = () => {
           <span className="font-serif italic">...MoodMeet!</span>
         </h1>
         <p className="text-lg leading-relaxed mb-4 fontFamily">
-          Welcome to MoodMeet, an innovative chatbot designed to bridge the gap between
-          technology and human emotions. By leveraging advanced Speech Emotion Recognition
-          (SER) technology powered by deep learning, MoodMeet understands the emotions
-          conveyed through your speech in real-time. Whether you're feeling happy, sad,
-          angry, or calm, MoodMeet identifies your sentiments and provides thoughtful,
-          personalized responses tailored to your needs.
+        MoodMeet is your intelligent emotional companion designed to understand not just what you say, but how you feel. Leveraging advanced Speech Emotion Recognition (SER) technology, MoodMeet analyzes vocal cues like tone, pitch, and rhythm in real-time to detect subtle emotional nuances—whether it's joy, frustration, sadness, or calm. More than just a chatbot, it responds with tailored empathy, offering support, encouragement, or thoughtful engagement based on your emotional state.
         </p>
         <p className="text-lg leading-relaxed fontFamily">
-          Our mission is to revolutionize human-computer interaction by integrating empathy into
-          digital systems. From offering mental health support to enhancing customer service
-          experiences, MoodMeet is here to make interactions meaningful and supportive. With
-          cutting-edge frameworks like PyTorch, HuggingFace, and Librosa, combined with cloud-
-          powered deployment, MeetMood is more than a chatbot—it's your personalized emotional
-          assistant.
+        Built on deep learning frameworks like PyTorch and powered by cloud-based processing, MoodMeet bridges the gap between artificial intelligence and human connection. Whether you're seeking a comforting conversation, mental well-being support, or simply a more intuitive digital interaction, MoodMeet adapts dynamically, making every exchange meaningful. This isn't just technology—it's AI with emotional intelligence, designed to listen, understand, and respond like never before.
         </p>
       </div>
     </div>

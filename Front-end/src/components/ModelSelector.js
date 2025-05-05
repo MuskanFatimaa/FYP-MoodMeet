@@ -16,19 +16,19 @@ const ModelSelector = () => {
     {
       id: 'cremad',
       name: 'CREMA-D',
-      description: 'Emotion model trained on CREMA-D dataset',
+      description: 'Emotion model trained on the CREMA-D dataset, which contains audio clips where actors express different emotions like happiness, anger, and sadness. Its diverse and realistic, helping the system learn from various voices and expressions',
       icon: '🎤'
     },
     {
       id: 'savee',
       name: 'SAVEE',
-      description: 'Emotion model trained on SAVEE dataset',
+      description: 'Emotion model trained on SAVEE, A smaller dataset with audio and video clips of actors showing emotions like fear, joy, and surprise. Its useful for testing how well the system can understand emotional speech from specific speakers.',
       icon: '🎧'
     },
     {
       id: 'prompttts',
       name: 'PromptTTS',
-      description: 'Emotion model trained on synthetic speech',
+      description: 'Model trained on A synthetic dataset created using AI voice models that “act out” different emotions like happy or sad. Its great for training the system when real emotional recordings are limited.',
       icon: '🔊'
     }
   ];
@@ -270,9 +270,6 @@ const ModelSelector = () => {
               </div>
               <p className="text-xl font-medium text-pink-600 mb-1">
                 {prediction.emotion_label.charAt(0).toUpperCase() + prediction.emotion_label.slice(1)}
-              </p>
-              <p className="text-gray-600">
-                Confidence: {(Math.max(...prediction.probabilities) * 100).toFixed(1)}%
               </p>
             </div>
           )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import modelImage1 from '../assets/images/result1.jpg';
 import modelImage2 from '../assets/images/result2.jpg';
 import modelImage3 from '../assets/images/result3.jpg';
@@ -12,7 +12,6 @@ import "../assets/style/help.css";
 const Results = ({ predictionResult }) => {
   const [activeTab, setActiveTab] = useState('modelPerformance');
 
-  // Model performance data
   const modelStats = [
     {
       name: "PromptTTS Model",
@@ -56,7 +55,6 @@ const Results = ({ predictionResult }) => {
     }
   ];
 
-  // ➡️ Added this tiny helper:
   const emotionLists = {
     cremad: ['Neutral', 'Happy', 'Sad', 'Angry', 'Fear', 'Disgust'],
     savee: ['Neutral', 'Happy', 'Sad', 'Angry', 'Fear', 'Disgust', 'Surprise'],
@@ -86,18 +84,28 @@ const Results = ({ predictionResult }) => {
 
       {activeTab === 'modelPerformance' ? (
         <>
-          <h1 className="text-4xl md:text-5xl font-[cursive] text-center mb-6 fontFamily mt-14">
+          <h1 className="text-4xl md:text-5xl font-[cursive] text-center mb-6 fontFamily">
             About The Model's <br /> Performance.
           </h1>
 
-          <div className="text-white py-20 px-6 fontFamily">
+          <div className="text-white px-6 fontFamily">
             {modelStats.map((model, index) => (
-              <div key={index} className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
-                {/* Left Column - Stats */}
-                <div className="md:w-1/2">
+              <div key={index} className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 mb-20">
+                
+                {/* Left Column - Description + Stats */}
+                <div className="md:w-1/2 flex flex-col justify-start">
+                  {/* Only for the first model */}
+                  {index === 0 && (
+                    <p className="italic text-white/80 text-lg md:text-xl leading-relaxed mb-6">
+                      The following shows the performance metrics of our emotion recognition models across different datasets,
+                      demonstrating their effectiveness in detecting various emotional states from speech patterns.
+                    </p>
+                  )}
+
                   <h4 className="text-3xl md:text-4xl font-normal leading-snug mb-6">
                     {model.name} Performance
                   </h4>
+
                   <div className="text-lg leading-relaxed">
                     <p className="text-5xl font-bold mb-3">{model.accuracy}</p>
                     <p className="text-3xl text-white">
@@ -134,50 +142,21 @@ const Results = ({ predictionResult }) => {
           </div>
         </>
       ) : (
-        /* Your Results Tab */
         predictionResult && (
           <div className="w-full max-w-4xl p-8 bg-white/10 rounded-xl backdrop-blur-sm">
             <h2 className="text-3xl font-[cursive] text-center mb-8 text-pink-300">
               Your Emotion Analysis Results
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Emotion Summary */}
+            <div className="grid md:grid-cols-1 gap-8">
               <div className="bg-[#3A1B6B] p-6 rounded-lg">
                 <h3 className="text-2xl font-light mb-4">Detected Emotion</h3>
                 <p className="text-4xl font-bold capitalize text-pink-300">
                   {predictionResult.emotion_label}
                 </p>
-                <p className="text-xl mt-4">
-                  Confidence: {(Math.max(...predictionResult.probabilities[0]) * 100).toFixed(1)}%
-                </p>
-              </div>
-
-              {/* Confidence Breakdown */}
-              <div className="bg-[#3A1B6B] p-6 rounded-lg">
-                <h3 className="text-2xl font-light mb-4">Confidence Breakdown</h3>
-                <div className="space-y-3">
-                  {predictionResult.probabilities[0].map((prob, idx) => (
-                    <div key={idx} className="flex items-center">
-                      <span className="w-32 capitalize">
-                        {labels[idx] || 'Unknown'}:
-                      </span>
-                      <div className="flex-1 bg-white/20 rounded-full h-4">
-                        <div
-                          className="bg-pink-400 h-4 rounded-full"
-                          style={{ width: `${prob * 100}%` }}
-                        ></div>
-                      </div>
-                      <span className="w-16 text-right">
-                        {(prob * 100).toFixed(1)}%
-                      </span>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
 
-            {/* Model Used */}
             <div className="mt-6 text-center text-lg">
               Analysis performed using: <span className="font-bold text-pink-300">
                 {predictionResult.model_used.toUpperCase()} Model
@@ -187,7 +166,7 @@ const Results = ({ predictionResult }) => {
         )
       )}
 
-      {/* Help section remains unchanged */}
+      {/* Help section */}
       <div className="text-lg md:text-xl space-y-2 text-center fontFamily mt-12">
         <h1>Need Some Help?</h1>
         <h2><a href="#" className="help_link">User Manual</a></h2>
