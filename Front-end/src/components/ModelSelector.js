@@ -28,7 +28,7 @@ const ModelSelector = () => {
     {
       id: 'prompttts',
       name: 'PromptTTS',
-      description: 'Model trained on A synthetic dataset created using AI voice models that “act out” different emotions like happy or sad. Its great for training the system when real emotional recordings are limited.',
+      description: 'Model trained on A synthetic dataset created using AI voice models that "act out" different emotions like happy or sad. Its great for training the system when real emotional recordings are limited.',
       icon: '🔊'
     }
   ];
@@ -43,6 +43,7 @@ const ModelSelector = () => {
 
   const startRecording = () => {
     setRecord(true);
+    setRecordedBlob(null);
     setPrediction(null);
   };
 
@@ -50,8 +51,13 @@ const ModelSelector = () => {
     setRecord(false);
   };
 
-  const onStop = (blobObject) => {
-    setRecordedBlob(blobObject);
+  const onStop = (recordedBlob) => {
+    console.log("onStop called with:", recordedBlob);
+    const blob = new Blob([recordedBlob.blob], { type: 'audio/webm' }); // safer fallback
+    setRecordedBlob({
+      blob: blob,
+      blobURL: recordedBlob.blobURL
+    });
   };
 
   const handleFileUpload = () => {
@@ -83,8 +89,9 @@ const ModelSelector = () => {
     try {
       setLoading(true);
       let response;
-      
+
       if (recordedBlob) {
+        console.log("Sending recorded blob:", recordedBlob);
         const formData = new FormData();
         formData.append('file', recordedBlob.blob, 'recording.wav');
         formData.append('model_name', selectedModel.id);
@@ -97,10 +104,9 @@ const ModelSelector = () => {
           model_name: selectedModel.id
         });
       }
-      
+
       setPrediction(response.data);
-      
-      // Welcome message based on emotion
+
       const welcomeMessages = {
         happy: "I see you're feeling happy! What's making you smile today?",
         sad: "I notice you might be feeling down. Would you like to talk about it?",
@@ -109,7 +115,7 @@ const ModelSelector = () => {
         fear: "It seems you might be anxious. Would sharing help?",
         disgust: "I detect some strong feelings. Want to discuss what's bothering you?"
       };
-      
+
       setChatMessages([{
         text: welcomeMessages[response.data.emotion_label] || "How can I help you today?",
         sender: 'bot'
@@ -124,23 +130,23 @@ const ModelSelector = () => {
 
   const handleChatSubmit = async () => {
     if (!textInput.trim() || !prediction) return;
-    
+
     try {
-      setChatMessages(prev => [...prev, { 
-        text: textInput, 
-        sender: 'user' 
+      setChatMessages(prev => [...prev, {
+        text: textInput,
+        sender: 'user'
       }]);
-      
+
       const response = await axios.post('http://127.0.0.1:8000/chat', {
         text: textInput,
         voice_emotion: prediction.emotion_label
       });
-      
+
       setChatMessages(prev => [...prev, {
         text: response.data.text_response,
         sender: 'bot'
       }]);
-      
+
       setTextInput('');
     } catch (error) {
       console.error('Chat error:', error);
@@ -154,16 +160,16 @@ const ModelSelector = () => {
   return (
     <div className="w-full bg-white flex flex-col items-center py-8">
       <h1 className="text-4xl font-light text-pink-500 mb-10">Choose a Model</h1>
-      
+
       <div className="flex justify-center w-full px-4 max-w-6xl">
         {models.map((model) => (
-          <div 
+          <div
             key={model.id}
             onClick={() => handleModelSelect(model)}
             className={`w-1/3 h-80 mx-2 p-8 bg-[#24024C] text-white cursor-pointer rounded-lg 
               transition-all duration-300 transform hover:scale-105 hover:shadow-xl
-              ${selectedModel?.id === model.id 
-                ? 'ring-4 ring-blue-500 shadow-2xl scale-105' 
+              ${selectedModel?.id === model.id
+                ? 'ring-4 ring-blue-500 shadow-2xl scale-105'
                 : 'shadow-md hover:shadow-lg'}`}
           >
             <div className="text-3xl mb-2">{model.icon}</div>
@@ -175,12 +181,14 @@ const ModelSelector = () => {
           </div>
         ))}
       </div>
-      
+
       {selectedModel && (
         <div className="w-full max-w-2xl mt-8 px-4 animate-fadeIn">
-          {/* Unified Input Bar */}
+        {/* Added supported formats notice */}
+    <div className="text-center text-gray-500 text-sm mb-4">
+      Supported audio formats: MP3, WAV, M4A, AAC, FLAC, OGG
+    </div>
           <div className="bg-white rounded-xl shadow-xl border border-gray-200 px-6 py-4 flex items-center justify-between transform transition-all duration-300 hover:shadow-2xl">
-            {/* File Upload Button (left) */}
             <div className="relative">
               <button
                 className="text-3xl font-bold text-black hover:text-purple-700 transition-colors duration-200"
@@ -197,7 +205,6 @@ const ModelSelector = () => {
               />
             </div>
 
-            {/* Text Input (center) */}
             <input
               type="text"
               value={textInput}
@@ -208,7 +215,6 @@ const ModelSelector = () => {
               onKeyPress={(e) => e.key === 'Enter' && (prediction ? handleChatSubmit() : handleSubmit())}
             />
 
-            {/* Mic/Submit Button (right) */}
             {!record && !recordedBlob ? (
               <button
                 className="text-2xl text-black hover:text-purple-700 transition-colors duration-200"
@@ -234,28 +240,27 @@ const ModelSelector = () => {
             )}
           </div>
 
-          {/* Audio Visualization */}
-          {record && (
+          {/* Keep ReactMic mounted during stop */}
+          {(record || recordedBlob === null) && (
             <div className="mt-4 bg-gray-100 p-4 rounded-lg">
               <ReactMic
                 record={record}
                 className="w-full h-12"
                 onStop={onStop}
                 strokeColor="#000000"
-                backgroundColor="transparent"
-                mimeType="audio/wav"
+                backgroundColor="#f0f0f0"
+                echoCancellation={true}
+                noiseSuppression={true}
               />
             </div>
           )}
 
-          {/* Audio Preview */}
           {recordedBlob && !record && (
             <div className="mt-4">
               <audio src={recordedBlob.blobURL} controls className="w-full" />
             </div>
           )}
 
-          {/* Prediction Result */}
           {prediction && (
             <div className="mt-6 p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl shadow-lg text-center animate-fadeIn">
               <h3 className="text-2xl font-light mb-2">Analysis Result</h3>
@@ -274,15 +279,14 @@ const ModelSelector = () => {
             </div>
           )}
 
-          {/* Chat Interface */}
           {prediction && (
             <div className="mt-6 p-4 bg-white rounded-lg shadow-md border border-gray-200">
               <div className="h-40 overflow-y-auto mb-3 space-y-2">
                 {chatMessages.map((msg, i) => (
-                  <div 
-                    key={i} 
-                    className={`p-2 rounded-lg max-w-xs ${msg.sender === 'user' 
-                      ? 'bg-pink-100 ml-auto' 
+                  <div
+                    key={i}
+                    className={`p-2 rounded-lg max-w-xs ${msg.sender === 'user'
+                      ? 'bg-pink-100 ml-auto'
                       : 'bg-gray-100'}`}
                   >
                     {msg.text}
